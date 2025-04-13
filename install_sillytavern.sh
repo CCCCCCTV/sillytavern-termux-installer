@@ -44,30 +44,34 @@ echo "============================="
 echo "🛠️ SillyTavern Termux 管理助手"
 echo "============================="
 
-# 是否检查更新
 echo ""
-echo "👉 是否检查 SillyTavern 更新？(y/n)"
-read update_choice
-if [ "$update_choice" = "y" ]; then
-  cd ~/SillyTavern
-  echo "🔄 正在检查更新..."
-  git pull
-  echo "🧹 清理 package-lock.json（避免警告）..."
-  rm -f package-lock.json
-  echo "📦 正在更新依赖（如有必要）..."
-  yarn install
-  echo "✅ 更新完成"
-fi
+echo "请选择操作："
+echo "1. 检查并更新 SillyTavern"
+echo "2. 启动 SillyTavern"
+echo "3. 退出"
+echo -n "输入选项编号 (1/2/3): "
+read choice
 
-# 是否启动
-echo ""
-echo "🚀 是否启动 SillyTavern？(y/n)"
-read start_choice
-if [ "$start_choice" = "y" ]; then
-  cd ~/SillyTavern
-  echo "✨ 正在启动 SillyTavern..."
-  yarn start
-fi
+case "$choice" in
+  1)
+    cd ~/SillyTavern
+    echo "🔄 正在检查更新..."
+    git pull
+    echo "🧹 清理 package-lock.json（避免警告）..."
+    rm -f package-lock.json
+    echo "📦 正在更新依赖（如有必要）..."
+    yarn install
+    echo "✅ 更新完成"
+    ;;
+  2)
+    cd ~/SillyTavern
+    echo "✨ 正在启动 SillyTavern..."
+    yarn start
+    ;;
+  *)
+    echo "👋 已退出，欢迎下次使用 SillyTavern 管理助手！"
+    ;;
+esac
 
 EOF
 
